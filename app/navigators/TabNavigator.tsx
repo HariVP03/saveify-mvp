@@ -12,6 +12,8 @@ import { translate } from "../i18n"
 import { HomeScreen } from "../screens"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
+import FeatherIcon from "@expo/vector-icons/Feather"
+import MaterialIcons from "@expo/vector-icons/MaterialIcons"
 
 export type TabParamList = {
   Home: undefined
@@ -31,7 +33,9 @@ const TabScreens: TabScreensProps[] = [
     component: HomeScreen,
     name: "Home",
     options: {
-      tabBarIcon: ({ focused }) => <Icon icon="community" color={focused && colors.tint} />,
+      tabBarIcon: ({ focused }) => (
+        <FeatherIcon size={24} name="home" color={focused && colors.tint} />
+      ),
       tabBarLabel: "Home",
     },
   },
@@ -39,7 +43,9 @@ const TabScreens: TabScreensProps[] = [
     component: HomeScreen,
     name: "Analysis",
     options: {
-      tabBarIcon: ({ focused }) => <Icon icon="community" color={focused && colors.tint} />,
+      tabBarIcon: ({ focused }) => (
+        <FeatherIcon size={24} name="book-open" color={focused && colors.tint} />
+      ),
       tabBarLabel: "Analysis",
     },
   },
@@ -47,7 +53,9 @@ const TabScreens: TabScreensProps[] = [
     component: HomeScreen,
     name: "Offers",
     options: {
-      tabBarIcon: ({ focused }) => <Icon icon="community" color={focused && colors.tint} />,
+      tabBarIcon: ({ focused }) => (
+        <FeatherIcon size={24} name="tag" color={focused && colors.tint} />
+      ),
       tabBarLabel: "Offers",
     },
   },
@@ -55,7 +63,9 @@ const TabScreens: TabScreensProps[] = [
     component: HomeScreen,
     name: "Profile",
     options: {
-      tabBarIcon: ({ focused }) => <Icon icon="community" color={focused && colors.tint} />,
+      tabBarIcon: ({ focused }) => (
+        <FeatherIcon size={24} name="user" color={focused && colors.tint} />
+      ),
       tabBarLabel: "Profile",
     },
   },
