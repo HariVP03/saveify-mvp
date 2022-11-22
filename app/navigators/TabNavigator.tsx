@@ -69,16 +69,6 @@ const TabScreens: TabScreensProps[] = [
       tabBarLabel: "Settings",
     },
   },
-  {
-    component: WelcomeScreen,
-    name: "Test",
-    options: {
-      tabBarIcon: ({ focused }) => (
-        <FeatherIcon size={24} name="user" color={focused && colors.tint} />
-      ),
-      tabBarLabel: "Test",
-    },
-  },
 ]
 
 export type TabScreenProps<T extends keyof TabParamList> = CompositeScreenProps<

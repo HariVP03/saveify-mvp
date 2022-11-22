@@ -25,10 +25,13 @@ export function Layout({ children, title }: LayoutProps) {
 const $container: ViewStyle = {
   paddingTop: spacing.large + spacing.extraLarge,
   paddingHorizontal: spacing.large,
+  flex: 1,
 }
 
 const $title: TextStyle = {
   marginBottom: spacing.small,
 }
 
-const $bottomContainer: ViewStyle = {}
+const $bottomContainer: ViewStyle = {
+  flex: 1,
+}
