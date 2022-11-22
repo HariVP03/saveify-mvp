@@ -37,7 +37,7 @@ export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(fu
         await Linking.openURL(gpay)
       }
 
-      props.navigation.navigate("Success", { upiString })
+      props.navigation.navigate("Success", { upiString: upiId })
 
       return
     }
@@ -46,7 +46,7 @@ export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(fu
 
     console.log("SUCCESS")
 
-    props.navigation.navigate("Success", { upiString })
+    props.navigation.navigate("Success", { upiString: upiId })
   }
 
   return (
@@ -55,12 +55,12 @@ export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(fu
         <Text
           preset="bold"
           style={$upiName}
-          text={transformUpiId(upiString).params.pn.replace("%20", " ")}
+          text={transformUpiId(upiString).params.pn.replaceAll("%20", " ")}
         />
         <Text
           style={$upiId}
           preset="bold"
-          text={transformUpiId(upiString).params.pa.replace("%40", "@")}
+          text={transformUpiId(upiString).params.pa.replaceAll("%40", "@")}
         />
       </View>
       <TextField

@@ -9,13 +9,19 @@ interface LayoutProps {
   children: React.ReactNode
   title: string
   fullWidth?: boolean
+  style?: ViewStyle
 }
 
-export function Layout({ children, title, fullWidth }: LayoutProps) {
+export function Layout({ children, title, fullWidth, style }: LayoutProps) {
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 
   return (
-    <Screen preset="scroll" contentContainerStyle={$container} safeAreaEdges={["top"]}>
+    <Screen
+      style={style}
+      preset="scroll"
+      contentContainerStyle={$container}
+      safeAreaEdges={["top"]}
+    >
       <Text preset="heading" text={title} style={$title} />
 
       <View

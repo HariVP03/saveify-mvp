@@ -1,11 +1,12 @@
 import { observer } from "mobx-react-lite"
-import React from "react"
+import React, { useEffect } from "react"
 import { TextStyle, View, ViewStyle } from "react-native"
 import { Button, Layout, Text } from "../../components"
 import { AppStackScreenProps } from "../../navigators"
 import EvilIcons from "@expo/vector-icons/EvilIcons"
 import { colors, spacing } from "../../theme"
 import { transformUpiId } from "../../utils/common"
+import { clear, load, save, StorageKeys } from "../../utils/storage"
 
 export const SuccessScreen: React.FC<AppStackScreenProps<"Success">> = observer(
   function SuccessScreen(props) {
@@ -15,6 +16,24 @@ export const SuccessScreen: React.FC<AppStackScreenProps<"Success">> = observer(
       },
       navigation,
     } = props
+
+    useEffect(() => {
+      console.log("123")
+
+      load(StorageKeys.TRANSACTIONS).then((res) => {
+        save(StorageKeys.TRANSACTIONS, [
+          {
+            upiString,
+            name: transformUpiId(upiString).params.pn.replaceAll("%20", " "),
+            amount: transformUpiId(upiString).params.am,
+            date: new Date().toISOString(),
+            upiId: transformUpiId(upiString).params.pa.replaceAll("%40", "@"),
+          },
+          ...(res ?? []),
+        ])
+      })
+    }, [])
+
     return (
       <Layout title="" fullWidth>
         <View style={$container}>
@@ -27,9 +46,13 @@ export const SuccessScreen: React.FC<AppStackScreenProps<"Success">> = observer(
           <Text
             preset="bold"
             style={$upiName}
-            text={transformUpiId(upiString).params.pn.replace("%20", " ")}
+            text={transformUpiId(upiString).params.pn.replaceAll("%20", " ")}
           />
-          <Text style={$upiId} preset="bold" text={transformUpiId(upiString).params.pa} />
+          <Text
+            style={$upiId}
+            preset="bold"
+            text={transformUpiId(upiString).params.pa.replaceAll("%40", "@")}
+          />
 
           <Text preset="bold" text={new Date().toLocaleString()} />
           <Button
