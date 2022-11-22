@@ -5,14 +5,16 @@ import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
 import Config from "../config"
-import { WelcomeScreen, ScanScreen } from "../screens"
+import { WelcomeScreen, ScanScreen, AmountScreen } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { TabNavigator } from "./TabNavigator"
 
 export type AppStackParamList = {
   Home: undefined
   Scan: undefined
-  Amount: undefined
+  Amount: {
+    upiString: string
+  }
 }
 
 const exitRoutes = Config.exitRoutes
@@ -29,6 +31,7 @@ const AppStack = observer(function AppStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={TabNavigator} />
       <Stack.Screen name="Scan" component={ScanScreen} />
+      <Stack.Screen name="Amount" component={AmountScreen} />
     </Stack.Navigator>
   )
 })

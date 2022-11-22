@@ -15,6 +15,10 @@ export const ScanScreen: React.FC<AppStackScreenProps<"Scan">> = observer(functi
     requestPermission()
   }, [])
 
+  const handleQrScanned = (upiString: string) => {
+    props.navigation.navigate("Amount", { upiString })
+  }
+
   if (!permission?.granted || !permission) {
     return (
       <View style={$cameraContainer}>
@@ -23,6 +27,7 @@ export const ScanScreen: React.FC<AppStackScreenProps<"Scan">> = observer(functi
           imageStyle={$emptyStateImage}
           ImageProps={{ resizeMode: "contain" }}
           button="Request Permission"
+          buttonOnPress={requestPermission}
           content="Looks like we don't have permission to access your camera..."
         />
       </View>
@@ -32,7 +37,12 @@ export const ScanScreen: React.FC<AppStackScreenProps<"Scan">> = observer(functi
   return (
     <Layout title="Scan" fullWidth>
       <View style={$cameraContainer}>
-        <Camera style={$camera} />
+        <Camera
+          onBarCodeScanned={({ data }) => {
+            handleQrScanned(data)
+          }}
+          style={$camera}
+        />
       </View>
     </Layout>
   )
