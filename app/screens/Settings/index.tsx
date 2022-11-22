@@ -8,11 +8,16 @@ import FeatherIcon from "@expo/vector-icons/Feather"
 
 export const SettingsScreen: React.FC<TabScreenProps<"Settings">> = observer(
   function SettingsScreen(props) {
-    const [lightMode, setLightMode] = React.useState(false)
-
     return (
       <Layout title="Settings">
         <View>
+          <Text preset="subheading" text="Accounts" />
+          <ListItem
+            leftIcon="community"
+            text="Profile"
+            rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          />
+
           <Text preset="subheading" text="Permissions" />
           <ListItem
             leftIcon="bell"
