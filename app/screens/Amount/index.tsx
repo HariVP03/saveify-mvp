@@ -44,8 +44,6 @@ export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(fu
 
     await Linking.openURL(upiId)
 
-    console.log("SUCCESS")
-
     props.navigation.navigate("Success", { upiString: upiId })
   }
 
@@ -70,7 +68,9 @@ export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(fu
         autoFocus
         containerStyle={$textFieldContainer}
         value={amount}
-        onChangeText={(val) => setAmount(isNaN(parseFloat(val)) ? "" : val)}
+        onChangeText={(val) => {
+          setAmount(isNaN(parseFloat(val)) ? "" : parseInt(val) > 1e5 ? (1e5).toString() : val)
+        }}
       />
 
       <Button

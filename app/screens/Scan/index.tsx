@@ -16,6 +16,7 @@ export const ScanScreen: React.FC<AppStackScreenProps<"Scan">> = observer(functi
   }, [])
 
   const handleQrScanned = (upiString: string) => {
+    if (!upiString.includes("upi:/")) return
     props.navigation.navigate("Amount", { upiString })
   }
 
