@@ -1,12 +1,13 @@
 import { observer } from "mobx-react-lite"
 import React, { useEffect, useMemo } from "react"
 import { SafeAreaView, ScrollView, View, ViewStyle } from "react-native"
-import { Card, Layout, Text, TextField } from "../../components"
+import { Card, Layout, ListItem, Text, TextField } from "../../components"
 import { TabScreenProps } from "../../navigators/TabNavigator"
 import { load, save, StorageKeys } from "../../utils/storage"
 import EvilIcons from "@expo/vector-icons/EvilIcons"
 import FeatherIcons from "@expo/vector-icons/Feather"
 import { colors, spacing } from "../../theme"
+import { isRTL } from "expo-localization"
 
 const ColorsMapping = {
   over: "red",
@@ -60,7 +61,7 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
         <ScrollView>
           <Layout title="Analysis" container={{ paddingTop: spacing.extraSmall }}>
             <View style={$header}>
-              <Text preset="subheading" text="Monthly spending" />
+              <Text preset="subheading" text="You've spent this month" />
               {!edit && (
                 <EvilIcons
                   onPress={() => {
@@ -77,15 +78,13 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
                 </View>
               )}
             </View>
-
             {!edit && (
               <Text
                 preset="heading"
                 style={{ color: ColorsMapping[spendingStatus] }}
-                text={`₹${amountSpent}/${monthlySpending}`}
+                text={`₹${amountSpent} / ${monthlySpending}`}
               />
             )}
-
             {edit && (
               <TextField
                 autoFocus
@@ -95,6 +94,34 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
                 value={newMonthlySpending}
               />
             )}
+            <View style={{ ...$header, marginTop: spacing.medium, marginBottom: 0 }}>
+              <Text preset="subheading" text="Spending details" />
+            </View>
+            <ListItem
+              text="Food"
+              rightIcon={isRTL ? "caretLeft" : "caretRight"}
+              RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
+            />
+            <ListItem
+              text="Travel"
+              rightIcon={isRTL ? "caretLeft" : "caretRight"}
+              RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
+            />
+            <ListItem
+              text="Shopping"
+              rightIcon={isRTL ? "caretLeft" : "caretRight"}
+              RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
+            />
+            <ListItem
+              text="Entertainment"
+              rightIcon={isRTL ? "caretLeft" : "caretRight"}
+              RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
+            />
+            <ListItem
+              text="Other"
+              rightIcon={isRTL ? "caretLeft" : "caretRight"}
+              RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
+            />
 
             <View style={{ ...$header, marginTop: spacing.medium }}>
               <Text preset="subheading" text="Your transactions" />

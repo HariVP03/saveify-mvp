@@ -5,6 +5,7 @@ import { useColorScheme, View } from "react-native"
 import { Layout, ListItem, Text, Toggle } from "../../components"
 import { TabScreenProps } from "../../navigators/TabNavigator"
 import FeatherIcon from "@expo/vector-icons/Feather"
+import { spacing } from "../../theme"
 
 export const SettingsScreen: React.FC<TabScreenProps<"Settings">> = observer(
   function SettingsScreen(props) {
@@ -32,7 +33,7 @@ export const SettingsScreen: React.FC<TabScreenProps<"Settings">> = observer(
                 size={24}
                 style={{
                   marginTop: 16,
-                  marginRight: 16,
+                  marginRight: spacing.medium,
                 }}
               />
             }
