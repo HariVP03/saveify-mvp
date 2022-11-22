@@ -3,19 +3,27 @@ import React, { useEffect, useMemo } from "react"
 import { ScrollView, View, ViewStyle } from "react-native"
 import { Card, Layout, Text, TextField } from "../../components"
 import { TabScreenProps } from "../../navigators/TabNavigator"
-import { load, StorageKeys } from "../../utils/storage"
+import { load, save, StorageKeys } from "../../utils/storage"
 import EvilIcons from "@expo/vector-icons/EvilIcons"
+import FeatherIcons from "@expo/vector-icons/Feather"
 import { colors, spacing } from "../../theme"
 
 export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
   function AnalysisScreen(props) {
     const [transactions, setTransactions] = React.useState([])
     const [monthlySpending, setMonthlySpending] = React.useState(null)
+    const [newMonthlySpending, setNewMonthlySpending] = React.useState(null)
     const [edit, setEdit] = React.useState(false)
 
     const amountSpent = useMemo(() => {
       return transactions.reduce((acc, curr) => acc + parseFloat(curr.amount), 0)
     }, [transactions])
+
+    const onEdit = () => {
+      setEdit(false)
+      save(StorageKeys.MONTHLY_SPENDING, newMonthlySpending)
+      setMonthlySpending(newMonthlySpending)
+    }
 
     const refetch = () => {
       load(StorageKeys.TRANSACTIONS).then((transactions) => {
@@ -28,9 +36,7 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
     }
 
     useEffect(() => {
-      load(StorageKeys.TRANSACTIONS).then((res) => {
-        setTransactions(res)
-      })
+      refetch()
     }, [])
 
     return (
@@ -39,7 +45,12 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
           <View style={$header}>
             <Text preset="subheading" text="Monthly spending" />
             {!edit && <EvilIcons onPress={() => setEdit(true)} name="pencil" size={40} />}
-            {edit && <EvilIcons onPress={() => setEdit(false)} name="check" size={40} />}
+            {edit && (
+              <View style={{ display: "flex", flexDirection: "row" }}>
+                <FeatherIcons onPress={() => setEdit(false)} name="x" size={32} />
+                <EvilIcons onPress={onEdit} name="check" size={40} />
+              </View>
+            )}
           </View>
 
           {!edit && (
@@ -55,6 +66,8 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
               autoFocus
               keyboardType="numeric"
               placeholder="Enter your new monthly spending limt"
+              onChangeText={(text) => setNewMonthlySpending(isNaN(parseFloat(text)) ? "" : text)}
+              value={newMonthlySpending}
             />
           )}
 
