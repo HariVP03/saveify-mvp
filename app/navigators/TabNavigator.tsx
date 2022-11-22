@@ -9,17 +9,17 @@ import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
 import { translate } from "../i18n"
-import { HomeScreen } from "../screens"
+import { HomeScreen, WelcomeScreen } from "../screens"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 import FeatherIcon from "@expo/vector-icons/Feather"
-import MaterialIcons from "@expo/vector-icons/MaterialIcons"
 
 export type TabParamList = {
   Home: undefined
   Analysis: undefined
   Offers: undefined
   Profile: undefined
+  Test: undefined
 }
 
 interface TabScreensProps {
@@ -67,6 +67,16 @@ const TabScreens: TabScreensProps[] = [
         <FeatherIcon size={24} name="user" color={focused && colors.tint} />
       ),
       tabBarLabel: "Profile",
+    },
+  },
+  {
+    component: WelcomeScreen,
+    name: "Test",
+    options: {
+      tabBarIcon: ({ focused }) => (
+        <FeatherIcon size={24} name="user" color={focused && colors.tint} />
+      ),
+      tabBarLabel: "Test",
     },
   },
 ]

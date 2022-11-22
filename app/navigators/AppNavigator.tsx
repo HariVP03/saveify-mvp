@@ -37,8 +37,7 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={TabNavigator} />
-      <Stack.Screen name="Welcome" component={TabNavigator} />
-      {/** 🔥 Your screens go here */}
+      {/* <Stack.Screen name="Welcome" component={TabNavigator} /> */}
     </Stack.Navigator>
   )
 })
