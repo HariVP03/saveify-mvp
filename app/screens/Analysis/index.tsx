@@ -8,6 +8,12 @@ import EvilIcons from "@expo/vector-icons/EvilIcons"
 import FeatherIcons from "@expo/vector-icons/Feather"
 import { colors, spacing } from "../../theme"
 
+const ColorsMapping = {
+  over: "red",
+  under: "green",
+  close: "orange",
+}
+
 export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
   function AnalysisScreen(props) {
     const [transactions, setTransactions] = React.useState([])
@@ -18,6 +24,16 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
     const amountSpent = useMemo(() => {
       return transactions.reduce((acc, curr) => acc + parseFloat(curr.amount), 0)
     }, [transactions])
+
+    const spendingStatus = useMemo(() => {
+      if (amountSpent === null) return null
+      if (amountSpent === null) return null
+      if (amountSpent > parseFloat(monthlySpending)) return "over"
+      if (amountSpent > 0.9 * monthlySpending) return "close"
+      if (amountSpent < 0.9 * monthlySpending) return "under"
+      console.log({ amountSpent, monthlySpending })
+      return "equal"
+    }, [monthlySpending, newMonthlySpending, amountSpent])
 
     const onEdit = () => {
       setEdit(false)
@@ -56,7 +72,7 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
           {!edit && (
             <Text
               preset="heading"
-              style={{ color: "green" }}
+              style={{ color: ColorsMapping[spendingStatus] }}
               text={`₹${amountSpent}/${monthlySpending}`}
             />
           )}
