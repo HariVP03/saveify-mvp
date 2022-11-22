@@ -1,3 +1,6 @@
 export * from "./WelcomeScreen"
 export * from "./ErrorScreen/ErrorBoundary"
 export * from "./Home"
+export * from "./Analysis"
+export * from "./Settings"
+export * from "./Offers"

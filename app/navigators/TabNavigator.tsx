@@ -9,7 +9,7 @@ import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
 import { translate } from "../i18n"
-import { HomeScreen, WelcomeScreen } from "../screens"
+import { AnalysisScreen, HomeScreen, OffersScreen, SettingsScreen, WelcomeScreen } from "../screens"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 import FeatherIcon from "@expo/vector-icons/Feather"
@@ -40,7 +40,7 @@ const TabScreens: TabScreensProps[] = [
     },
   },
   {
-    component: HomeScreen,
+    component: AnalysisScreen,
     name: "Analysis",
     options: {
       tabBarIcon: ({ focused }) => (
@@ -50,7 +50,7 @@ const TabScreens: TabScreensProps[] = [
     },
   },
   {
-    component: HomeScreen,
+    component: OffersScreen,
     name: "Offers",
     options: {
       tabBarIcon: ({ focused }) => (
@@ -60,7 +60,7 @@ const TabScreens: TabScreensProps[] = [
     },
   },
   {
-    component: HomeScreen,
+    component: SettingsScreen,
     name: "Settings",
     options: {
       tabBarIcon: ({ focused }) => (
