@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
 import Config from "../config"
-import { WelcomeScreen, ScanScreen, AmountScreen } from "../screens"
+import { WelcomeScreen, ScanScreen, AmountScreen, SuccessScreen } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { TabNavigator } from "./TabNavigator"
 
@@ -13,6 +13,9 @@ export type AppStackParamList = {
   Home: undefined
   Scan: undefined
   Amount: {
+    upiString: string
+  }
+  Success: {
     upiString: string
   }
 }
@@ -32,6 +35,7 @@ const AppStack = observer(function AppStack() {
       <Stack.Screen name="Home" component={TabNavigator} />
       <Stack.Screen name="Scan" component={ScanScreen} />
       <Stack.Screen name="Amount" component={AmountScreen} />
+      <Stack.Screen name="Success" component={SuccessScreen} />
     </Stack.Navigator>
   )
 })

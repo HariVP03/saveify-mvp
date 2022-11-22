@@ -1,9 +1,11 @@
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { Linking, Platform, TextStyle, View, ViewStyle } from "react-native"
 import { Button, Card, Header, Layout, Text, TextField } from "../../components"
 import { AppStackScreenProps } from "../../navigators"
 import { colors, spacing } from "../../theme"
+import { transformUpiId } from "../../utils/common"
+import { UPI_PREFIX } from "../../utils/constants"
 
 export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(function AmountScreen(
   props,
@@ -16,11 +18,50 @@ export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(fu
 
   const [amount, setAmount] = React.useState("")
 
+  const handlePay = async () => {
+    let upiId = upiString
+
+    if (!upiId.includes("&am=&") || amount === "0") {
+      upiId += `&am=${amount}`
+    }
+
+    upiId = upiId.replace("&am=&", `&am=${amount}&`)
+
+    if (Platform.OS === "ios") {
+      const gpay = upiId.replace("upi:/", UPI_PREFIX.GOOGLEPAY)
+      const paytm = upiId.replace("upi:/", UPI_PREFIX.PAYTM)
+
+      if (!(await Linking.canOpenURL(gpay))) {
+        await Linking.openURL(paytm)
+      } else {
+        await Linking.openURL(gpay)
+      }
+
+      props.navigation.navigate("Success", { upiString })
+
+      return
+    }
+
+    await Linking.openURL(upiId)
+
+    console.log("SUCCESS")
+
+    props.navigation.navigate("Success", { upiString })
+  }
+
   return (
     <Layout title="Pay">
       <View style={$upiInfoContainer}>
-        <Text preset="subheading" style={$upiName} text="PM Modi" />
-        <Text style={$upiId} preset="bold" text="pm@upi" />
+        <Text
+          preset="bold"
+          style={$upiName}
+          text={transformUpiId(upiString).params.pn.replace("%20", " ")}
+        />
+        <Text
+          style={$upiId}
+          preset="bold"
+          text={transformUpiId(upiString).params.pa.replace("%40", "@")}
+        />
       </View>
       <TextField
         keyboardType="numeric"
@@ -32,7 +73,12 @@ export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(fu
         onChangeText={(val) => setAmount(isNaN(parseFloat(val)) ? "" : val)}
       />
 
-      <Button preset="reversed" text={`Pay ₹${(parseFloat(amount) || 0).toFixed(2)}`} />
+      <Button
+        preset="reversed"
+        disabled={amount === ""}
+        text={`Pay ₹${(parseFloat(amount) || 0).toFixed(2)}`}
+        onPress={handlePay}
+      />
     </Layout>
   )
 })
@@ -56,13 +102,14 @@ const $upiInfoContainer: ViewStyle = {
   justifyContent: "center",
   alignItems: "center",
   width: "100%",
+  backgroundColor: "white",
+  padding: spacing.extraSmall,
+  borderRadius: 8,
+  marginBottom: spacing.medium,
+  shadowOpacity: 0.05,
+  shadowOffset: { width: 0, height: 0 },
 }
 
 const $textFieldContainer: ViewStyle = {
   marginBottom: spacing.medium,
-}
-
-const $textField: ViewStyle = {
-  marginBottom: spacing.medium,
-  height: 100,
 }
