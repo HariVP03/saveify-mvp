@@ -8,28 +8,39 @@ import { Screen } from "../Screen"
 interface LayoutProps {
   children: React.ReactNode
   title: string
+  fullWidth?: boolean
 }
 
-export function Layout({ children, title }: LayoutProps) {
+export function Layout({ children, title, fullWidth }: LayoutProps) {
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 
   return (
     <Screen preset="scroll" contentContainerStyle={$container} safeAreaEdges={["top"]}>
       <Text preset="heading" text={title} style={$title} />
 
-      <View style={[$bottomContainer, $bottomContainerInsets]}>{children}</View>
+      <View
+        style={[
+          $bottomContainer,
+          $bottomContainerInsets,
+          {
+            paddingHorizontal: fullWidth ? 0 : spacing.large,
+          },
+        ]}
+      >
+        {children}
+      </View>
     </Screen>
   )
 }
 
 const $container: ViewStyle = {
   paddingTop: spacing.large + spacing.extraLarge,
-  paddingHorizontal: spacing.large,
   flex: 1,
 }
 
 const $title: TextStyle = {
   marginBottom: spacing.small,
+  paddingHorizontal: spacing.large,
 }
 
 const $bottomContainer: ViewStyle = {

@@ -8,6 +8,7 @@ import FeatherIcon from "@expo/vector-icons/Feather"
 import MaterialIcons from "@expo/vector-icons/MaterialIcons"
 
 export const HomeScreen: React.FC<TabScreenProps<"Home">> = observer(function HomeScreen(props) {
+  const { navigation } = props
   return (
     <Layout title="Home">
       <Text
@@ -22,12 +23,14 @@ export const HomeScreen: React.FC<TabScreenProps<"Home">> = observer(function Ho
           )}
           style={$button}
           preset="reversed"
+          onPress={() => navigation.navigate("Scan")}
           text="Pay"
         />
         <Button
           LeftAccessory={() => (
             <MaterialIcons size={14} style={$buttonIcon} name="qr-code" color="black" />
           )}
+          disabled
           style={$button}
           preset="default"
           text="Receive"

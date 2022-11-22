@@ -8,6 +8,7 @@ import { Text, TextProps } from "./Text"
 const sadFace = require("../../assets/images/sad-face.png")
 
 interface EmptyStateProps {
+  contentText?: string
   /**
    * An optional prop that specifies the text/image set to use for the empty state.
    */
@@ -140,6 +141,7 @@ export function EmptyState(props: EmptyStateProps) {
     ContentTextProps,
     HeadingTextProps,
     ImageProps,
+    contentText,
   } = props
 
   const isImagePresent = !!imageSource
