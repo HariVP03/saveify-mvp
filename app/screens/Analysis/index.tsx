@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
 import React, { useEffect, useMemo } from "react"
-import { ScrollView, View, ViewStyle } from "react-native"
+import { SafeAreaView, ScrollView, View, ViewStyle } from "react-native"
 import { Card, Layout, Text, TextField } from "../../components"
 import { TabScreenProps } from "../../navigators/TabNavigator"
 import { load, save, StorageKeys } from "../../utils/storage"
@@ -56,47 +56,57 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
     }, [])
 
     return (
-      <ScrollView style={{ backgroundColor: colors.background }}>
-        <Layout title="Analysis">
-          <View style={$header}>
-            <Text preset="subheading" text="Monthly spending" />
-            {!edit && <EvilIcons onPress={() => setEdit(true)} name="pencil" size={40} />}
-            {edit && (
-              <View style={{ display: "flex", flexDirection: "row" }}>
-                <FeatherIcons onPress={() => setEdit(false)} name="x" size={32} />
-                <EvilIcons onPress={onEdit} name="check" size={40} />
-              </View>
+      <SafeAreaView style={$container}>
+        <ScrollView>
+          <Layout title="Analysis" container={{ paddingTop: spacing.extraSmall }}>
+            <View style={$header}>
+              <Text preset="subheading" text="Monthly spending" />
+              {!edit && (
+                <EvilIcons
+                  onPress={() => {
+                    setEdit(true)
+                  }}
+                  name="pencil"
+                  size={40}
+                />
+              )}
+              {edit && (
+                <View style={{ display: "flex", flexDirection: "row" }}>
+                  <FeatherIcons onPress={() => setEdit(false)} name="x" size={32} />
+                  <EvilIcons onPress={onEdit} name="check" size={40} />
+                </View>
+              )}
+            </View>
+
+            {!edit && (
+              <Text
+                preset="heading"
+                style={{ color: ColorsMapping[spendingStatus] }}
+                text={`₹${amountSpent}/${monthlySpending}`}
+              />
             )}
-          </View>
 
-          {!edit && (
-            <Text
-              preset="heading"
-              style={{ color: ColorsMapping[spendingStatus] }}
-              text={`₹${amountSpent}/${monthlySpending}`}
-            />
-          )}
+            {edit && (
+              <TextField
+                autoFocus
+                keyboardType="numeric"
+                placeholder="Enter your new monthly spending limt"
+                onChangeText={(text) => setNewMonthlySpending(isNaN(parseFloat(text)) ? "" : text)}
+                value={newMonthlySpending}
+              />
+            )}
 
-          {edit && (
-            <TextField
-              autoFocus
-              keyboardType="numeric"
-              placeholder="Enter your new monthly spending limt"
-              onChangeText={(text) => setNewMonthlySpending(isNaN(parseFloat(text)) ? "" : text)}
-              value={newMonthlySpending}
-            />
-          )}
+            <View style={{ ...$header, marginTop: spacing.medium }}>
+              <Text preset="subheading" text="Your transactions" />
+              <EvilIcons onPress={refetch} name="refresh" size={40} />
+            </View>
 
-          <View style={{ ...$header, marginTop: spacing.medium }}>
-            <Text preset="subheading" text="Your transactions" />
-            <EvilIcons onPress={refetch} name="refresh" size={40} />
-          </View>
-
-          {transactions.map((transaction, idx) => (
-            <TransactionCard key={idx} {...transaction} />
-          ))}
-        </Layout>
-      </ScrollView>
+            {transactions.map((transaction, idx) => (
+              <TransactionCard key={idx} {...transaction} />
+            ))}
+          </Layout>
+        </ScrollView>
+      </SafeAreaView>
     )
   },
 )
@@ -125,6 +135,11 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
       headingStyle={{ color: colors.tint }}
     />
   )
+}
+
+const $container: ViewStyle = {
+  flex: 1,
+  backgroundColor: colors.background,
 }
 
 const $card: ViewStyle = {

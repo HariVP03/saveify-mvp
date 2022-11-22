@@ -10,16 +10,17 @@ interface LayoutProps {
   title: string
   fullWidth?: boolean
   style?: ViewStyle
+  container?: ViewStyle
 }
 
-export function Layout({ children, title, fullWidth, style }: LayoutProps) {
+export function Layout({ children, title, fullWidth, style, container }: LayoutProps) {
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 
   return (
     <Screen
       style={style}
       preset="scroll"
-      contentContainerStyle={$container}
+      contentContainerStyle={{ ...$container, ...container }}
       safeAreaEdges={["top"]}
     >
       <Text preset="heading" text={title} style={$title} />
