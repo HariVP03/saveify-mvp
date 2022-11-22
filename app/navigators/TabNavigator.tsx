@@ -3,13 +3,11 @@ import {
   BottomTabScreenProps,
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs"
-import { CompositeScreenProps, RouteConfig } from "@react-navigation/native"
+import { CompositeScreenProps } from "@react-navigation/native"
 import React from "react"
 import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { Icon } from "../components"
-import { translate } from "../i18n"
-import { AnalysisScreen, HomeScreen, OffersScreen, SettingsScreen, WelcomeScreen } from "../screens"
+import { AnalysisScreen, HomeScreen, OffersScreen, SettingsScreen } from "../screens"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 import FeatherIcon from "@expo/vector-icons/Feather"

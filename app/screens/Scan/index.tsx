@@ -53,7 +53,7 @@ const $cameraContainer: ViewStyle = {
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
-  backgroundColor: "red",
+  backgroundColor: "white",
 }
 
 const $camera: ViewStyle = {

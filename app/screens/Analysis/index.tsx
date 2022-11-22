@@ -31,7 +31,7 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
       if (amountSpent > parseFloat(monthlySpending)) return "over"
       if (amountSpent > 0.9 * monthlySpending) return "close"
       if (amountSpent < 0.9 * monthlySpending) return "under"
-      console.log({ amountSpent, monthlySpending })
+
       return "equal"
     }, [monthlySpending, newMonthlySpending, amountSpent])
 
@@ -56,7 +56,7 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
     }, [])
 
     return (
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: colors.background }}>
         <Layout title="Analysis">
           <View style={$header}>
             <Text preset="subheading" text="Monthly spending" />
