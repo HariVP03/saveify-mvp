@@ -18,7 +18,7 @@ export type TabParamList = {
   Home: undefined
   Analysis: undefined
   Offers: undefined
-  Profile: undefined
+  Settings: undefined
   Test: undefined
 }
 
@@ -61,12 +61,12 @@ const TabScreens: TabScreensProps[] = [
   },
   {
     component: HomeScreen,
-    name: "Profile",
+    name: "Settings",
     options: {
       tabBarIcon: ({ focused }) => (
-        <FeatherIcon size={24} name="user" color={focused && colors.tint} />
+        <FeatherIcon size={24} name="settings" color={focused && colors.tint} />
       ),
-      tabBarLabel: "Profile",
+      tabBarLabel: "Settings",
     },
   },
   {

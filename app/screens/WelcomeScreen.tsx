@@ -13,7 +13,7 @@ const reactNativeNewsletterLogo = require("../../assets/images/rnn-logo.png")
 export const WelcomeScreen: FC<any> = function DemoCommunityScreen(_props) {
   return (
     <Screen preset="scroll" contentContainerStyle={$container} safeAreaEdges={["top"]}>
-      <Text preset="heading" text="demoCommunityScreen.title" style={$title} />
+      <Text preset="heading" text="Community" style={$title} />
       <Text text="demoCommunityScreen.tagLine" style={$tagline} />
 
       <Text preset="subheading" text="demoCommunityScreen.joinUsOnSlackTitle" />
