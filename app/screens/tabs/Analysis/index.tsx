@@ -3,11 +3,11 @@ import React, { useEffect, useMemo } from "react"
 import { SafeAreaView, ScrollView, View, ViewStyle } from "react-native"
 import { Card, Layout, ListItem, Text, TextField } from "../../../components"
 import { TabScreenProps } from "../../../navigators/TabNavigator"
-import { load, save, StorageKeys } from "../../../utils/storage"
 import EvilIcons from "@expo/vector-icons/EvilIcons"
 import FeatherIcons from "@expo/vector-icons/Feather"
 import { colors, spacing } from "../../../theme"
 import { isRTL } from "expo-localization"
+import { LocalStorageProvider } from "../../../services/local-storage/provider"
 
 const ColorsMapping = {
   over: "red",
@@ -38,18 +38,20 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
 
     const onEdit = () => {
       setEdit(false)
-      save(StorageKeys.MONTHLY_SPENDING, newMonthlySpending)
+      LocalStorageProvider.getInstance().saveMonthlySpending(newMonthlySpending)
       setMonthlySpending(newMonthlySpending)
     }
 
     const refetch = () => {
-      load(StorageKeys.TRANSACTIONS).then((transactions) => {
-        setTransactions(transactions)
-      })
+      LocalStorageProvider.getInstance()
+        .loadMonthTransactions()
+        .then((transactions) => setTransactions(transactions))
 
-      load(StorageKeys.MONTHLY_SPENDING).then((limit) => {
-        setMonthlySpending(limit)
-      })
+      LocalStorageProvider.getInstance()
+        .loadMonthlySpending()
+        .then((limit) => {
+          setMonthlySpending(limit)
+        })
     }
 
     useEffect(() => {
@@ -61,7 +63,7 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
         <ScrollView>
           <Layout title="Analysis" container={{ paddingTop: spacing.extraSmall }}>
             <View style={$header}>
-              <Text preset="subheading" text="You've spent this month" />
+              <Text preset="subheading" text="Spent this month" />
               {!edit && (
                 <EvilIcons
                   onPress={() => {
@@ -141,7 +143,7 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
 interface TransactionCardProps {
   name: string
   upiId: string
-  amount: string
+  amount: number
   date: string
   status?: "SENT" | "RECEIVED"
 }

@@ -7,6 +7,7 @@ import EvilIcons from "@expo/vector-icons/EvilIcons"
 import { colors, spacing } from "../../../../theme"
 import { transformUpiId } from "../../../../utils/common"
 import { clear, load, save, StorageKeys } from "../../../../utils/storage"
+import { LocalStorageProvider } from "../../../../services/local-storage/provider"
 
 export const SuccessScreen: React.FC<AppStackScreenProps<"Success">> = observer(
   function SuccessScreen(props) {
@@ -18,19 +19,12 @@ export const SuccessScreen: React.FC<AppStackScreenProps<"Success">> = observer(
     } = props
 
     useEffect(() => {
-      console.log("123")
-
-      load(StorageKeys.TRANSACTIONS).then((res) => {
-        save(StorageKeys.TRANSACTIONS, [
-          {
-            upiString,
-            name: transformUpiId(upiString).params.pn.replaceAll("%20", " "),
-            amount: transformUpiId(upiString).params.am,
-            date: new Date().toISOString(),
-            upiId: transformUpiId(upiString).params.pa.replaceAll("%40", "@"),
-          },
-          ...(res ?? []),
-        ])
+      LocalStorageProvider.getInstance().saveTransaction({
+        upiString,
+        name: transformUpiId(upiString).params.pn.replaceAll("%20", " "),
+        amount: parseFloat(transformUpiId(upiString).params.am),
+        date: new Date().toISOString(),
+        upiId: transformUpiId(upiString).params.pa.replaceAll("%40", "@"),
       })
     }, [])
 
@@ -42,6 +36,11 @@ export const SuccessScreen: React.FC<AppStackScreenProps<"Success">> = observer(
             style={{ marginVertical: spacing.medium, fontSize: 24 }}
             preset="bold"
             text="Payment Successfull!"
+          />
+          <Text
+            style={{ fontSize: 32, marginVertical: spacing.medium }}
+            preset="heading"
+            text={`₹ ${transformUpiId(upiString).params.am}`}
           />
           <Text
             preset="bold"
