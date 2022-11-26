@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import React from "react"
+import React, { useState } from "react"
 import { EmptyState, Layout } from "../../../../components"
 import { AppStackScreenProps } from "../../../../navigators"
 import { Camera } from "expo-camera"
@@ -10,14 +10,16 @@ export const ScanScreen: React.FC<AppStackScreenProps<"Scan">> = observer(functi
   props,
 ) {
   const [permission, requestPermission] = Camera.useCameraPermissions()
+  const [mountCamera, setMountCamera] = useState<boolean>(false)
 
   React.useEffect(() => {
-    requestPermission()
+    requestPermission().then((permission) => setMountCamera(permission.granted))
   }, [])
 
   const handleQrScanned = (upiString: string) => {
     if (!upiString.includes("upi:/")) return
     props.navigation.navigate("Amount", { upiString })
+    setMountCamera(false)
   }
 
   if (!permission?.granted || !permission) {
@@ -38,12 +40,14 @@ export const ScanScreen: React.FC<AppStackScreenProps<"Scan">> = observer(functi
   return (
     <Layout title="Scan" fullWidth>
       <View style={$cameraContainer}>
-        <Camera
-          onBarCodeScanned={({ data }) => {
-            handleQrScanned(data)
-          }}
-          style={$camera}
-        />
+        {mountCamera && (
+          <Camera
+            onBarCodeScanned={({ data }) => {
+              handleQrScanned(data)
+            }}
+            style={$camera}
+          />
+        )}
       </View>
     </Layout>
   )
