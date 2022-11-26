@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite"
 import React from "react"
-import { Layout } from "../../components"
-import { TabScreenProps } from "../../navigators/TabNavigator"
+import { Layout } from "../../../components"
+import { TabScreenProps } from "../../../navigators/TabNavigator"
 
 export const OffersScreen: React.FC<TabScreenProps<"Offers">> = observer(function OffersScreen(
   props,

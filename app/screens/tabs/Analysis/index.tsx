@@ -1,12 +1,12 @@
 import { observer } from "mobx-react-lite"
 import React, { useEffect, useMemo } from "react"
 import { SafeAreaView, ScrollView, View, ViewStyle } from "react-native"
-import { Card, Layout, ListItem, Text, TextField } from "../../components"
-import { TabScreenProps } from "../../navigators/TabNavigator"
-import { load, save, StorageKeys } from "../../utils/storage"
+import { Card, Layout, ListItem, Text, TextField } from "../../../components"
+import { TabScreenProps } from "../../../navigators/TabNavigator"
+import { load, save, StorageKeys } from "../../../utils/storage"
 import EvilIcons from "@expo/vector-icons/EvilIcons"
 import FeatherIcons from "@expo/vector-icons/Feather"
-import { colors, spacing } from "../../theme"
+import { colors, spacing } from "../../../theme"
 import { isRTL } from "expo-localization"
 
 const ColorsMapping = {

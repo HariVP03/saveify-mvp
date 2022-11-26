@@ -10,7 +10,7 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { TabNavigator } from "./TabNavigator"
 
 export type AppStackParamList = {
-  Home: undefined
+  Tabs: undefined
   Scan: undefined
   Amount: {
     upiString: string
@@ -32,7 +32,7 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={TabNavigator} />
+      <Stack.Screen name="Tabs" component={TabNavigator} />
       <Stack.Screen name="Scan" component={ScanScreen} />
       <Stack.Screen name="Amount" component={AmountScreen} />
       <Stack.Screen name="Success" component={SuccessScreen} />

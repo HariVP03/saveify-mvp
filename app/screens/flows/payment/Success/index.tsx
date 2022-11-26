@@ -1,12 +1,12 @@
 import { observer } from "mobx-react-lite"
 import React, { useEffect } from "react"
 import { TextStyle, View, ViewStyle } from "react-native"
-import { Button, Layout, Text } from "../../components"
-import { AppStackScreenProps } from "../../navigators"
+import { Button, Layout, Text } from "../../../../components"
+import { AppStackScreenProps } from "../../../../navigators"
 import EvilIcons from "@expo/vector-icons/EvilIcons"
-import { colors, spacing } from "../../theme"
-import { transformUpiId } from "../../utils/common"
-import { clear, load, save, StorageKeys } from "../../utils/storage"
+import { colors, spacing } from "../../../../theme"
+import { transformUpiId } from "../../../../utils/common"
+import { clear, load, save, StorageKeys } from "../../../../utils/storage"
 
 export const SuccessScreen: React.FC<AppStackScreenProps<"Success">> = observer(
   function SuccessScreen(props) {
@@ -56,7 +56,7 @@ export const SuccessScreen: React.FC<AppStackScreenProps<"Success">> = observer(
 
           <Text preset="bold" text={new Date().toLocaleString()} />
           <Button
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.navigate("Tabs")}
             style={{ marginTop: spacing.huge }}
             preset="default"
             text="Go back"

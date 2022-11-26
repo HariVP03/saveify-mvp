@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite"
 import React from "react"
 import { Linking, Platform, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Card, Header, Layout, Text, TextField } from "../../components"
-import { AppStackScreenProps } from "../../navigators"
-import { colors, spacing } from "../../theme"
-import { transformUpiId } from "../../utils/common"
-import { UPI_PREFIX } from "../../utils/constants"
+import { Button, Card, Header, Layout, Text, TextField } from "../../../../components"
+import { AppStackScreenProps } from "../../../../navigators"
+import { colors, spacing } from "../../../../theme"
+import { transformUpiId } from "../../../../utils/common"
+import { UPI_PREFIX } from "../../../../utils/constants"
 
 export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(function AmountScreen(
   props,
