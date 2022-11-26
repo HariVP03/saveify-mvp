@@ -126,13 +126,18 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
             />
 
             <View style={{ ...$header, marginTop: spacing.medium }}>
-              <Text preset="subheading" text="Your transactions" />
+              <Text preset="subheading" text="Transactions this month" />
               <EvilIcons onPress={refetch} name="refresh" size={40} />
             </View>
 
             {transactions.map((transaction, idx) => (
               <TransactionCard key={idx} {...transaction} />
             ))}
+
+            <ListItem
+              text="Show previous month's transactions"
+              rightIcon={isRTL ? "caretLeft" : "caretRight"}
+            />
           </Layout>
         </ScrollView>
       </SafeAreaView>
