@@ -1,4 +1,4 @@
-export interface LocalTransaction {
+export interface Transaction {
   upiString: string
   name: string
   amount: number

@@ -1,5 +1,5 @@
-import { LocalTransaction } from "../../types"
-import { load, save, StorageKeys } from "../../utils/storage"
+import { Transaction } from "../../types"
+import { load, save, StorageKeys } from "../storage"
 
 export class LocalStorageProvider {
   static instance: LocalStorageProvider | undefined
@@ -11,11 +11,11 @@ export class LocalStorageProvider {
     return this.instance
   }
 
-  async loadTransactions(): Promise<LocalTransaction[]> {
+  async loadTransactions(): Promise<Transaction[]> {
     return await load(StorageKeys.TRANSACTIONS)
   }
 
-  async loadMonthTransactions(month?: number): Promise<LocalTransaction[]> {
+  async loadMonthTransactions(month?: number): Promise<Transaction[]> {
     const transactions = await this.loadTransactions()
     const currentMonth = month ?? new Date().getMonth()
 
@@ -32,7 +32,7 @@ export class LocalStorageProvider {
     return await save(StorageKeys.MONTHLY_SPENDING, spending)
   }
 
-  async saveTransaction(transaction: LocalTransaction): Promise<boolean> {
+  async saveTransaction(transaction: Transaction): Promise<boolean> {
     const transactions = [transaction, ...(await this.loadTransactions())]
 
     return await save(StorageKeys.TRANSACTIONS, transactions)

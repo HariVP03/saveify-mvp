@@ -5,27 +5,19 @@ import { Button, Layout, Text } from "../../../../components"
 import { AppStackScreenProps } from "../../../../navigators"
 import EvilIcons from "@expo/vector-icons/EvilIcons"
 import { colors, spacing } from "../../../../theme"
-import { transformUpiId } from "../../../../utils/common"
-import { clear, load, save, StorageKeys } from "../../../../utils/storage"
-import { LocalStorageProvider } from "../../../../services/local-storage/provider"
+import { LocalStorageProvider } from "../../../../utils/local-storage"
 
 export const SuccessScreen: React.FC<AppStackScreenProps<"Success">> = observer(
   function SuccessScreen(props) {
     const {
       route: {
-        params: { upiString },
+        params: { transaction },
       },
       navigation,
     } = props
 
     useEffect(() => {
-      LocalStorageProvider.getInstance().saveTransaction({
-        upiString,
-        name: transformUpiId(upiString).params.pn.replaceAll("%20", " "),
-        amount: parseFloat(transformUpiId(upiString).params.am),
-        date: new Date().toISOString(),
-        upiId: transformUpiId(upiString).params.pa.replaceAll("%40", "@"),
-      })
+      LocalStorageProvider.getInstance().saveTransaction(transaction)
     }, [])
 
     return (
@@ -40,18 +32,10 @@ export const SuccessScreen: React.FC<AppStackScreenProps<"Success">> = observer(
           <Text
             style={{ fontSize: 32, marginVertical: spacing.medium }}
             preset="heading"
-            text={`₹ ${transformUpiId(upiString).params.am}`}
+            text={`₹ ${transaction.amount}`}
           />
-          <Text
-            preset="bold"
-            style={$upiName}
-            text={transformUpiId(upiString).params.pn.replaceAll("%20", " ")}
-          />
-          <Text
-            style={$upiId}
-            preset="bold"
-            text={transformUpiId(upiString).params.pa.replaceAll("%40", "@")}
-          />
+          <Text preset="bold" style={$upiName} text={transaction.name} />
+          <Text style={$upiId} preset="bold" text={transaction.upiId} />
 
           <Text preset="bold" text={new Date().toLocaleString()} />
           <Button

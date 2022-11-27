@@ -5,7 +5,8 @@ import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
 import Config from "../config"
-import { WelcomeScreen, ScanScreen, AmountScreen, SuccessScreen } from "../screens"
+import { ScanScreen, AmountScreen, SuccessScreen } from "../screens"
+import { Transaction } from "../types"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { TabNavigator } from "./TabNavigator"
 
@@ -16,7 +17,7 @@ export type AppStackParamList = {
     upiString: string
   }
   Success: {
-    upiString: string
+    transaction: Transaction
   }
 }
 

@@ -7,7 +7,8 @@ import EvilIcons from "@expo/vector-icons/EvilIcons"
 import FeatherIcons from "@expo/vector-icons/Feather"
 import { colors, spacing } from "../../../theme"
 import { isRTL } from "expo-localization"
-import { LocalStorageProvider } from "../../../services/local-storage/provider"
+import { LocalStorageProvider } from "../../../utils/local-storage/provider"
+import { calculateSpendingStatus } from "../../../utils/common"
 
 const ColorsMapping = {
   over: "red",
@@ -27,13 +28,7 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
     }, [transactions])
 
     const spendingStatus = useMemo(() => {
-      if (amountSpent === null) return null
-      if (amountSpent === null) return null
-      if (amountSpent > parseFloat(monthlySpending)) return "over"
-      if (amountSpent > 0.9 * monthlySpending) return "close"
-      if (amountSpent < 0.9 * monthlySpending) return "under"
-
-      return "equal"
+      return calculateSpendingStatus(amountSpent, monthlySpending)
     }, [monthlySpending, newMonthlySpending, amountSpent])
 
     const onEdit = () => {

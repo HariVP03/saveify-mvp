@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite"
-import React from "react"
-import { Linking, Platform, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Card, Header, Layout, Text, TextField } from "../../../../components"
+import React, { useMemo } from "react"
+import { TextStyle, View, ViewStyle } from "react-native"
+import { Button, Layout, Text, TextField } from "../../../../components"
 import { AppStackScreenProps } from "../../../../navigators"
+import { getTransactionFromUpiString } from "../../../../utils/common"
 import { colors, spacing } from "../../../../theme"
-import { transformUpiId } from "../../../../utils/common"
-import { UPI_PREFIX } from "../../../../utils/constants"
+import { UPI } from "../../../../utils/upi"
 
 export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(function AmountScreen(
   props,
@@ -18,48 +18,21 @@ export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(fu
 
   const [amount, setAmount] = React.useState("")
 
+  const transaction = useMemo(() => UPI.transformToTransaction(upiString), [upiString])
+
   const handlePay = async () => {
-    let upiId = upiString
+    await UPI.initiatePayment(upiString, parseFloat(amount))
 
-    if (!upiId.includes("&am=&") || amount === "0") {
-      upiId += `&am=${amount}`
-    }
-
-    upiId = upiId.replace("&am=&", `&am=${amount}&`)
-
-    if (Platform.OS === "ios") {
-      const gpay = upiId.replace("upi:/", UPI_PREFIX.GOOGLEPAY)
-      const paytm = upiId.replace("upi:/", UPI_PREFIX.PAYTM)
-
-      if (!(await Linking.canOpenURL(gpay))) {
-        await Linking.openURL(paytm)
-      } else {
-        await Linking.openURL(gpay)
-      }
-
-      props.navigation.navigate("Success", { upiString: upiId })
-
-      return
-    }
-
-    await Linking.openURL(upiId)
-
-    props.navigation.navigate("Success", { upiString: upiId })
+    props.navigation.navigate("Success", {
+      transaction: getTransactionFromUpiString(upiString),
+    })
   }
 
   return (
     <Layout title="Pay">
       <View style={$upiInfoContainer}>
-        <Text
-          preset="bold"
-          style={$upiName}
-          text={transformUpiId(upiString).params.pn.replaceAll("%20", " ")}
-        />
-        <Text
-          style={$upiId}
-          preset="bold"
-          text={transformUpiId(upiString).params.pa.replaceAll("%40", "@")}
-        />
+        <Text preset="bold" style={$upiName} text={transaction.name} />
+        <Text style={$upiId} preset="bold" text={transaction.upiId} />
       </View>
       <TextField
         keyboardType="numeric"

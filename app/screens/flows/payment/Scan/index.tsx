@@ -5,6 +5,7 @@ import { AppStackScreenProps } from "../../../../navigators"
 import { Camera } from "expo-camera"
 import { Dimensions, ImageStyle, View, ViewStyle } from "react-native"
 import { isRTL } from "expo-localization"
+import { UPI } from "../../../../utils/upi"
 
 export const ScanScreen: React.FC<AppStackScreenProps<"Scan">> = observer(function ScanScreen(
   props,
@@ -17,7 +18,8 @@ export const ScanScreen: React.FC<AppStackScreenProps<"Scan">> = observer(functi
   }, [])
 
   const handleQrScanned = (upiString: string) => {
-    if (!upiString.includes("upi:/")) return
+    if (!UPI.validateString(upiString)) return
+
     props.navigation.navigate("Amount", { upiString })
     setMountCamera(false)
   }
