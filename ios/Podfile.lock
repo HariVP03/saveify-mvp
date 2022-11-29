@@ -10,15 +10,15 @@ PODS:
     - ExpoModulesCore
   - EXDevice (4.3.0):
     - ExpoModulesCore
-  - EXErrorRecovery (3.2.0):
+  - EXErrorRecovery (4.0.1):
     - ExpoModulesCore
   - EXFileSystem (14.1.0):
     - ExpoModulesCore
   - EXFont (10.2.1):
     - ExpoModulesCore
-  - Expo (46.0.17):
+  - Expo (47.0.8):
     - ExpoModulesCore
-  - ExpoKeepAwake (10.2.1):
+  - ExpoKeepAwake (11.0.1):
     - ExpoModulesCore
   - ExpoLocalization (13.1.0):
     - ExpoModulesCore
@@ -656,11 +656,11 @@ SPEC CHECKSUMS:
   EXCamera: 9f8303a52b2027e007174c2068c2ac76ff41d974
   EXConstants: 7c44785d41d8e959d527d23d29444277a4d1ee73
   EXDevice: 7647ca9b1fd8b269dfd896a7643d659343358054
-  EXErrorRecovery: 74d71ee59f6814315457b09d68e86aa95cc7d05d
+  EXErrorRecovery: ae43433feb0608a64dc5b1c8363b3e7769a9ea24
   EXFileSystem: 927e0a8885aa9c49e50fc38eaba2c2389f2f1019
   EXFont: 06df627203afcb8a3b3152ec06eb2f11f46f0cff
-  Expo: 4de8a31146bb0480353b3ed1850e015c4862625f
-  ExpoKeepAwake: 8b47e5358d54ea4922b630a74f2acb026ab7a28b
+  Expo: 36b5f625d36728adbdd1934d4d57182f319ab832
+  ExpoKeepAwake: 69b59d0a8d2b24de9f82759c39b3821fec030318
   ExpoLocalization: 63204f4b9d4f653469d266332ceaa6c6ac8a305d
   ExpoModulesCore: f9d1730cc2dde38e46b0becb97628b3ebbd29f21
   EXSplashScreen: 799bece80089219b2c989c1082d70f3b00995cda

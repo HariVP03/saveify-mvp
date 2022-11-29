@@ -1,6 +1,6 @@
 {
   "cli": {
-    "version": ">= 2.7.1"
+    "version": ">= 2.7.0"
   },
   "build": {
     "development": {
@@ -15,11 +15,7 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {
-      "android": {
-        "buildType": "apk"
-      }
-    }
+    "production": {}
   },
   "submit": {
     "production": {}
