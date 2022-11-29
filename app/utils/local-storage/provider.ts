@@ -33,7 +33,7 @@ export class LocalStorageProvider {
   }
 
   async saveTransaction(transaction: Transaction): Promise<boolean> {
-    const transactions = [transaction, ...(await this.loadTransactions())]
+    const transactions = [transaction, ...((await this.loadTransactions()) || [])]
 
     return await save(StorageKeys.TRANSACTIONS, transactions)
   }
