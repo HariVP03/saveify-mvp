@@ -21,10 +21,10 @@ export const AmountScreen: React.FC<AppStackScreenProps<"Amount">> = observer(fu
   const transaction = useMemo(() => UPI.transformToTransaction(upiString), [upiString])
 
   const handlePay = async () => {
-    await UPI.initiatePayment(upiString, parseFloat(amount))
+    const upiDeepLink = await UPI.initiatePayment(upiString, parseFloat(amount))
 
     props.navigation.navigate("Success", {
-      transaction: getTransactionFromUpiString(upiString),
+      transaction: getTransactionFromUpiString(upiDeepLink),
     })
   }
 

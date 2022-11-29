@@ -11,18 +11,19 @@ export const UPI = {
     return getTransactionFromUpiString(upiString)
   },
 
-  async initiatePayment(upiString: string, amount: number) {
-    let upiId: string
+  async initiatePayment(upiString: string, amount: number): Promise<string> {
+    let upiId: string = upiString
 
-    if (!upiString.includes("&am=&") || !amount) {
-      upiString += `&am=${amount}`
+    if (!upiString.includes("&am=") || !amount) {
+      upiId += `&am=${amount}`
     }
 
     upiId = upiId.replace("&am=&", `&am=${amount}&`)
 
     if (Platform.OS === "android") {
       await Linking.openURL(upiId)
-      return
+
+      return upiId
     }
 
     const gpay = upiId.replace("upi:/", UPI_PREFIX.GOOGLEPAY)
@@ -30,8 +31,10 @@ export const UPI = {
 
     if (!(await Linking.canOpenURL(gpay))) {
       await Linking.openURL(paytm)
-      return
+      return upiId
     }
     await Linking.openURL(gpay)
+
+    return upiId
   },
 }
