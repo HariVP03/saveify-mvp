@@ -18,18 +18,17 @@
       "fallbackToCacheTimeout": 0
     },
     "jsEngine": "hermes",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "android": {
       "icon": "./assets/images/saveify-app-logo.png",
       "package": "com.saveifymvp",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/app-icon-android-adaptive-foreground.png",
-        "backgroundImage": "./assets/images/app-icon-android-adaptive-background.png"
+        "foregroundImage": "./assets/images/saveify-app-logo.png",
+        "backgroundImage": "./assets/images/saveify-app-logo.png"
       },
       "splash": {
-        "image": "./assets/images/splash-logo-android-universal.png",
+        "image": "./assets/images/saveify-splashscreen.png",
+        "tabletImage": "./assets/images/saveify-splashscreen.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
       }
