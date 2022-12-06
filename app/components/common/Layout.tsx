@@ -1,5 +1,5 @@
 import React from "react"
-import { View, ViewStyle, TextStyle } from "react-native"
+import { View, ViewStyle, TextStyle, ScrollView } from "react-native"
 import { spacing } from "../../theme"
 import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle"
 import { Text } from "../Text"
@@ -17,26 +17,28 @@ export function Layout({ children, title, fullWidth, style, container }: LayoutP
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 
   return (
-    <Screen
-      style={style}
-      preset="scroll"
-      contentContainerStyle={{ ...$container, ...container }}
-      safeAreaEdges={["top"]}
-    >
-      <Text preset="heading" text={title} style={$title} />
-
-      <View
-        style={[
-          $bottomContainer,
-          $bottomContainerInsets,
-          {
-            paddingHorizontal: fullWidth ? 0 : spacing.large,
-          },
-        ]}
+    <ScrollView>
+      <Screen
+        style={style}
+        preset="scroll"
+        contentContainerStyle={{ ...$container, ...container }}
+        safeAreaEdges={["top"]}
       >
-        {children}
-      </View>
-    </Screen>
+        <Text preset="heading" text={title} style={$title} />
+
+        <View
+          style={[
+            $bottomContainer,
+            $bottomContainerInsets,
+            {
+              paddingHorizontal: fullWidth ? 0 : spacing.large,
+            },
+          ]}
+        >
+          {children}
+        </View>
+      </Screen>
+    </ScrollView>
   )
 }
 

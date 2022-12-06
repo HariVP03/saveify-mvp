@@ -54,88 +54,84 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
     }, [])
 
     return (
-      <SafeAreaView style={$container}>
-        <ScrollView>
-          <Layout title="Analysis" container={{ paddingTop: spacing.extraSmall }}>
-            <View style={$header}>
-              <Text preset="subheading" text="Spent this month" />
-              {!edit && (
-                <EvilIcons
-                  onPress={() => {
-                    setEdit(true)
-                  }}
-                  name="pencil"
-                  size={40}
-                />
-              )}
-              {edit && (
-                <View style={{ display: "flex", flexDirection: "row" }}>
-                  <FeatherIcons onPress={() => setEdit(false)} name="x" size={32} />
-                  <EvilIcons onPress={onEdit} name="check" size={40} />
-                </View>
-              )}
+      <Layout title="Analysis">
+        <View style={$header}>
+          <Text preset="subheading" text="Spent this month" />
+          {!edit && (
+            <EvilIcons
+              onPress={() => {
+                setEdit(true)
+              }}
+              name="pencil"
+              size={40}
+            />
+          )}
+          {edit && (
+            <View style={{ display: "flex", flexDirection: "row" }}>
+              <FeatherIcons onPress={() => setEdit(false)} name="x" size={32} />
+              <EvilIcons onPress={onEdit} name="check" size={40} />
             </View>
-            {!edit && (
-              <Text
-                preset="heading"
-                style={{ color: ColorsMapping[spendingStatus] }}
-                text={`₹${amountSpent} / ${monthlySpending}`}
-              />
-            )}
-            {edit && (
-              <TextField
-                autoFocus
-                keyboardType="numeric"
-                placeholder="Enter your new monthly spending limt"
-                onChangeText={(text) => setNewMonthlySpending(isNaN(parseFloat(text)) ? "" : text)}
-                value={newMonthlySpending}
-              />
-            )}
-            <View style={{ ...$header, marginTop: spacing.medium, marginBottom: 0 }}>
-              <Text preset="subheading" text="Spending details" />
-            </View>
-            <ListItem
-              text="Food"
-              rightIcon={isRTL ? "caretLeft" : "caretRight"}
-              RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
-            />
-            <ListItem
-              text="Travel"
-              rightIcon={isRTL ? "caretLeft" : "caretRight"}
-              RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
-            />
-            <ListItem
-              text="Shopping"
-              rightIcon={isRTL ? "caretLeft" : "caretRight"}
-              RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
-            />
-            <ListItem
-              text="Entertainment"
-              rightIcon={isRTL ? "caretLeft" : "caretRight"}
-              RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
-            />
-            <ListItem
-              text="Other"
-              rightIcon={isRTL ? "caretLeft" : "caretRight"}
-              RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
-            />
+          )}
+        </View>
+        {!edit && (
+          <Text
+            preset="heading"
+            style={{ color: ColorsMapping[spendingStatus] }}
+            text={`₹${amountSpent} / ${monthlySpending}`}
+          />
+        )}
+        {edit && (
+          <TextField
+            autoFocus
+            keyboardType="numeric"
+            placeholder="Enter your new monthly spending limt"
+            onChangeText={(text) => setNewMonthlySpending(isNaN(parseFloat(text)) ? "" : text)}
+            value={newMonthlySpending}
+          />
+        )}
+        <View style={{ ...$header, marginTop: spacing.medium, marginBottom: 0 }}>
+          <Text preset="subheading" text="Spending details" />
+        </View>
+        <ListItem
+          text="Food"
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
+        />
+        <ListItem
+          text="Travel"
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
+        />
+        <ListItem
+          text="Shopping"
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
+        />
+        <ListItem
+          text="Entertainment"
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
+        />
+        <ListItem
+          text="Other"
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          RightComponent={<Text text="₹400 / 500" style={{ marginTop: spacing.medium }} />}
+        />
 
-            <View style={{ ...$header, marginTop: spacing.medium }}>
-              <Text preset="subheading" text="Transactions this month" />
-              <EvilIcons onPress={refetch} name="refresh" size={40} />
-            </View>
+        <View style={{ ...$header, marginTop: spacing.medium }}>
+          <Text preset="subheading" text="Transactions this month" />
+          <EvilIcons onPress={refetch} name="refresh" size={40} />
+        </View>
 
-            {transactions.map((transaction, idx) => (
-              <TransactionCard key={idx} {...transaction} />
-            ))}
+        {transactions.map((transaction, idx) => (
+          <TransactionCard key={idx} {...transaction} />
+        ))}
 
-            <ListItem
-              text="Show previous month's transactions"
-              rightIcon={isRTL ? "caretLeft" : "caretRight"}
-            />
-          </Layout>
-        </ScrollView>
-      </SafeAreaView>
+        <ListItem
+          text="Show previous month's transactions"
+          rightIcon={isRTL ? "caretLeft" : "caretRight"}
+        />
+      </Layout>
     )
   },
 )
