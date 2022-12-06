@@ -32,7 +32,7 @@ const TabScreens: TabScreensProps[] = [
     name: "Home",
     options: {
       tabBarIcon: ({ focused }) => (
-        <FeatherIcon size={24} name="home" color={focused && colors.tint} />
+        <FeatherIcon size={24} name="home" color={focused ? colors.tint : "black"} />
       ),
       tabBarLabel: "Home",
     },
@@ -42,7 +42,7 @@ const TabScreens: TabScreensProps[] = [
     name: "Analysis",
     options: {
       tabBarIcon: ({ focused }) => (
-        <FeatherIcon size={24} name="book-open" color={focused && colors.tint} />
+        <FeatherIcon size={24} name="book-open" color={focused ? colors.tint : "black"} />
       ),
       tabBarLabel: "Analysis",
     },
@@ -52,7 +52,7 @@ const TabScreens: TabScreensProps[] = [
     name: "Offers",
     options: {
       tabBarIcon: ({ focused }) => (
-        <FeatherIcon size={24} name="tag" color={focused && colors.tint} />
+        <FeatherIcon size={24} name="tag" color={focused ? colors.tint : "black"} />
       ),
       tabBarLabel: "Offers",
     },
@@ -62,7 +62,7 @@ const TabScreens: TabScreensProps[] = [
     name: "Settings",
     options: {
       tabBarIcon: ({ focused }) => (
-        <FeatherIcon size={24} name="settings" color={focused && colors.tint} />
+        <FeatherIcon size={24} name="settings" color={focused ? colors.tint : "black"} />
       ),
       tabBarLabel: "Settings",
     },
