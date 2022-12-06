@@ -45,7 +45,7 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
       LocalStorageProvider.getInstance()
         .loadMonthlySpending()
         .then((limit) => {
-          setMonthlySpending(limit)
+          setMonthlySpending(limit ?? 0)
         })
     }
 
