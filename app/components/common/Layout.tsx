@@ -23,9 +23,9 @@ export function Layout({ children, title, fullWidth, style, container }: LayoutP
         <Screen
           style={{
             ...style,
-            height: Dimensions.get("screen").height - 125,
+            height: Dimensions.get("screen").height - 10,
           }}
-          preset="scroll"
+          // preset="scroll"
           contentContainerStyle={{ ...container, ...$container }}
           safeAreaEdges={["top"]}
         >
