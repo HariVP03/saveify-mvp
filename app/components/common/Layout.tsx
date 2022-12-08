@@ -24,7 +24,6 @@ export function Layout({ children, title, fullWidth, style, container }: LayoutP
           style={{
             ...style,
             height: Dimensions.get("screen").height - 125,
-            backgroundColor: "blue",
           }}
           preset="scroll"
           contentContainerStyle={{ ...container, ...$container }}
