@@ -1,6 +1,6 @@
 import React from "react"
-import { View, ViewStyle, TextStyle, ScrollView } from "react-native"
-import { spacing } from "../../theme"
+import { SafeAreaView, View, ViewStyle, TextStyle, ScrollView } from "react-native"
+import { colors, spacing } from "../../theme"
 import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle"
 import { Text } from "../Text"
 import { Screen } from "../Screen"
@@ -17,28 +17,30 @@ export function Layout({ children, title, fullWidth, style, container }: LayoutP
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 
   return (
-    <ScrollView>
-      <Screen
-        style={style}
-        preset="scroll"
-        contentContainerStyle={{ ...$container, ...container }}
-        safeAreaEdges={["top"]}
-      >
-        <Text preset="heading" text={title} style={$title} />
-
-        <View
-          style={[
-            $bottomContainer,
-            $bottomContainerInsets,
-            {
-              paddingHorizontal: fullWidth ? 0 : spacing.large,
-            },
-          ]}
+    <SafeAreaView style={$safeArea}>
+      <ScrollView>
+        <Screen
+          style={style}
+          preset="scroll"
+          contentContainerStyle={{ ...$container, ...container }}
+          safeAreaEdges={["top"]}
         >
-          {children}
-        </View>
-      </Screen>
-    </ScrollView>
+          <Text preset="heading" text={title} style={$title} />
+
+          <View
+            style={[
+              $bottomContainer,
+              $bottomContainerInsets,
+              {
+                paddingHorizontal: fullWidth ? 0 : spacing.large,
+              },
+            ]}
+          >
+            {children}
+          </View>
+        </Screen>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
@@ -54,4 +56,8 @@ const $title: TextStyle = {
 
 const $bottomContainer: ViewStyle = {
   flex: 1,
+}
+const $safeArea: ViewStyle = {
+  flex: 1,
+  backgroundColor: colors.background,
 }
