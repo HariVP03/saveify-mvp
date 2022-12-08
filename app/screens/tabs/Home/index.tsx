@@ -44,6 +44,7 @@ const $buttonContainer: ViewStyle = {
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
+  justifyContent: "center",
   flex: 1,
 }
 
