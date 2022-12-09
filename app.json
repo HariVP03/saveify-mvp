@@ -15,13 +15,17 @@
       "backgroundColor": "#191015"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/a30a4f89-bb2a-40d0-8522-9935ee55e5f3"
     },
     "jsEngine": "hermes",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
       "icon": "./assets/images/saveify-app-logo.png",
       "package": "com.saveifymvp",
+      "versionCode": 5,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/saveify-app-logo.png",
         "backgroundImage": "./assets/images/saveify-app-logo.png"
@@ -36,6 +40,7 @@
     "ios": {
       "icon": "./assets/images/saveify-app-logo.png",
       "supportsTablet": true,
+      "buildNumber": "2.0.0",
       "bundleIdentifier": "com.saveifymvp",
       "splash": {
         "image": "./assets/images/saveify-splashscreen.png",
@@ -56,6 +61,7 @@
       "eas": {
         "projectId": "a30a4f89-bb2a-40d0-8522-9935ee55e5f3"
       }
-    }
+    },
+    "runtimeVersion": "1.1.0"
   }
 }
