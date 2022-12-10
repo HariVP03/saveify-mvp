@@ -6,6 +6,7 @@ import {
 } from "firebase/auth"
 import { useEffect, useState } from "react"
 import { auth } from "../config"
+import { AuthErrors } from "./errors"
 
 interface BaseAuthProps {
   email: string
@@ -22,7 +23,9 @@ async function loginWithEmailAndPassword(props: LoginWithEmailAndPasswordProps) 
 
   return signInWithEmailAndPassword(auth, email, password)
     .then(({ user }) => onSuccess?.(user))
-    .catch((error) => onError?.({ code: error.code, message: error.message }))
+    .catch(({ code }) => {
+      onError?.({ code: code, message: AuthErrors[code] })
+    })
 }
 
 interface CreateUserProps extends BaseAuthProps {}
@@ -32,12 +35,14 @@ async function createUser(props: CreateUserProps) {
 
   return createUserWithEmailAndPassword(auth, email, password)
     .then(({ user }) => onSuccess?.(user))
-    .catch((error) => onError?.({ code: error.errorCode, message: error.errorMessage }))
+    .catch(({ code }) => {
+      onError?.({ code, message: AuthErrors[code] })
+    })
 }
 
 interface UseAuthProps {
-  onSuccess?: () => void
-  onError?: () => void
+  onSuccess?: (user: User) => void
+  onError?: (error: { code: string; message: string }) => void
 }
 
 export function useAuth(props?: UseAuthProps) {

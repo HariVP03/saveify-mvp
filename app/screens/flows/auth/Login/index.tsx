@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
 import { Toast } from "native-base"
-import React, { FC, useEffect, useMemo, useRef, useState } from "react"
+import React, { FC, useMemo, useRef, useState } from "react"
 import { TextInput, TextStyle, ViewStyle } from "react-native"
 import {
   Button,
@@ -10,10 +10,10 @@ import {
   Text,
   TextField,
   TextFieldAccessoryProps,
-} from "../../../components"
-import { AppStackScreenProps } from "../../../navigators"
-import { useAuth } from "../../../services/firebase"
-import { colors, spacing } from "../../../theme"
+} from "../../../../components"
+import { AppStackScreenProps } from "../../../../navigators"
+import { useAuth } from "../../../../services/firebase"
+import { colors, spacing } from "../../../../theme"
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
@@ -21,7 +21,13 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
   const authPasswordInput = useRef<TextInput>()
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
 
-  const { loginWithEmailAndPassword } = useAuth()
+  const { loginWithEmailAndPassword } = useAuth({
+    onError(error) {
+      Toast.show({
+        title: error.message,
+      })
+    },
+  })
 
   const [authEmail, setAuthEmail] = useState("")
   const [authPassword, setAuthPassword] = useState("")
