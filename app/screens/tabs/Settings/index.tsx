@@ -31,6 +31,7 @@ export const SettingsScreen: React.FC<TabScreenProps<"Settings">> = observer(
               <FeatherIcon
                 name="camera"
                 size={24}
+                color="black"
                 style={{
                   marginTop: 16,
                   marginRight: spacing.medium,

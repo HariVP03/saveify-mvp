@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite"
 import React, { useEffect, useMemo } from "react"
-import { SafeAreaView, ScrollView, View, ViewStyle } from "react-native"
+import { ViewStyle } from "react-native"
 import { Card, Layout, ListItem, Text, TextField } from "../../../components"
 import { TabScreenProps } from "../../../navigators/TabNavigator"
 import EvilIcons from "@expo/vector-icons/EvilIcons"
@@ -9,11 +9,13 @@ import { colors, spacing } from "../../../theme"
 import { isRTL } from "expo-localization"
 import { LocalStorageProvider } from "../../../utils/local-storage/provider"
 import { calculateSpendingStatus } from "../../../utils/common"
+import { View } from "native-base"
 
 const ColorsMapping = {
   over: "red",
   under: "green",
   close: "orange",
+  default: "black",
 }
 
 export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
@@ -28,10 +30,12 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
     }, [transactions])
 
     const spendingStatus = useMemo(() => {
-      return calculateSpendingStatus(amountSpent, monthlySpending)
+      return calculateSpendingStatus(amountSpent, monthlySpending) ?? "default"
     }, [monthlySpending, newMonthlySpending, amountSpent])
 
     const onEdit = () => {
+      if (!newMonthlySpending) return
+
       setEdit(false)
       LocalStorageProvider.getInstance().saveMonthlySpending(newMonthlySpending)
       setMonthlySpending(newMonthlySpending)
@@ -68,8 +72,8 @@ export const AnalysisScreen: React.FC<TabScreenProps<"Analysis">> = observer(
           )}
           {edit && (
             <View style={{ display: "flex", flexDirection: "row" }}>
-              <FeatherIcons onPress={() => setEdit(false)} name="x" size={32} />
-              <EvilIcons onPress={onEdit} name="check" size={40} />
+              <FeatherIcons color="black" onPress={() => setEdit(false)} name="x" size={32} />
+              <EvilIcons color="black" onPress={onEdit} name="check" size={40} />
             </View>
           )}
         </View>
