@@ -55,6 +55,7 @@ export function useAuth(props?: UseAuthProps) {
   }, [])
 
   return {
+    user,
     loginWithEmailAndPassword: (email: string, password: string) =>
       loginWithEmailAndPassword({ email, password, ...props }),
     createUser: (email: string, password: string) => createUser({ email, password, ...props }),

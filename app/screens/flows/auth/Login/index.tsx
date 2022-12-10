@@ -21,16 +21,16 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
   const authPasswordInput = useRef<TextInput>()
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
 
+  const [authEmail, setAuthEmail] = useState("")
+  const [authPassword, setAuthPassword] = useState("")
+
   const { loginWithEmailAndPassword } = useAuth({
-    onError(error) {
+    onError({ message }) {
       Toast.show({
-        title: error.message,
+        title: message,
       })
     },
   })
-
-  const [authEmail, setAuthEmail] = useState("")
-  const [authPassword, setAuthPassword] = useState("")
 
   const PasswordRightAccessory = useMemo(
     () =>
@@ -65,7 +65,6 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         keyboardType="email-address"
         label="Email"
         placeholder="Enter your email address"
-        // status={errors?.authEmail ? "error" : undefined}
         onSubmitEditing={() => authPasswordInput.current?.focus()}
       />
 
@@ -88,6 +87,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         text="Let's roll!"
         style={$tapButton}
         preset="reversed"
+        disabled={!authEmail || !authPassword}
         onPress={() => loginWithEmailAndPassword(authEmail, authPassword)}
       />
     </Layout>

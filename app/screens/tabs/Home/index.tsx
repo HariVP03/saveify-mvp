@@ -7,17 +7,21 @@ import { spacing } from "../../../theme"
 import FeatherIcon from "@expo/vector-icons/Feather"
 import MaterialIcons from "@expo/vector-icons/MaterialIcons"
 import { View } from "native-base"
+import { useAuth } from "../../../services/firebase"
 
 export const HomeScreen: React.FC<TabScreenProps<"Home">> = observer(function HomeScreen(props) {
   const { navigation } = props
 
-  navigation.navigate("Login")
+  const { user } = useAuth()
+
   return (
     <Layout title="Home">
       <Text
         text="Hiya, Welcome to Saveify! Let us know about your experience with us... 👀"
         size="md"
       />
+
+      <Text text={JSON.stringify({ user }, null, 2)} size="xs" />
 
       <View style={$buttonContainer}>
         <Button
@@ -45,7 +49,6 @@ export const HomeScreen: React.FC<TabScreenProps<"Home">> = observer(function Ho
 
 const $buttonContainer: ViewStyle = {
   flexDirection: "row",
-  justifyContent: "space-between",
   alignItems: "center",
   justifyContent: "center",
   flex: 1,
