@@ -6,6 +6,7 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import Config from "../config"
 import { ScanScreen, AmountScreen, SuccessScreen } from "../screens"
+import { LoginScreen } from "../screens/flows/auth/login"
 import { Transaction } from "../types"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { TabNavigator } from "./TabNavigator"
@@ -19,6 +20,7 @@ export type AppStackParamList = {
   Success: {
     transaction: Transaction
   }
+  Login: undefined
 }
 
 const exitRoutes = Config.exitRoutes
@@ -37,6 +39,7 @@ const AppStack = observer(function AppStack() {
       <Stack.Screen name="Scan" component={ScanScreen} />
       <Stack.Screen name="Amount" component={AmountScreen} />
       <Stack.Screen name="Success" component={SuccessScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
     </Stack.Navigator>
   )
 })
