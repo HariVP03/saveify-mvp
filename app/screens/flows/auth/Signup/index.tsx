@@ -98,11 +98,7 @@ export const SignupScreen: FC<SignupScreenProps> = observer(function SignupScree
 
   return (
     <Layout title="Signup">
-      <Text
-        text="Enter your details below to unlock top secret info. 🤫"
-        preset="subheading"
-        style={$enterDetails}
-      />
+      <Text text="Let's get you signed up first!" preset="subheading" style={$enterDetails} />
 
       <TextField
         value={auth.email}
