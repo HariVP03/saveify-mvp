@@ -4,8 +4,8 @@ import { colors, spacing } from "../../theme"
 import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle"
 import { Text } from "../Text"
 import { Screen } from "../Screen"
-
 import { SafeAreaProvider } from "react-native-safe-area-context"
+
 interface LayoutProps {
   children: React.ReactNode
   title: string
@@ -23,7 +23,7 @@ export function Layout({ children, title, fullWidth, style, container }: LayoutP
         <Screen
           style={{
             ...style,
-            height: Dimensions.get("screen").height - 10,
+            minHeight: Dimensions.get("screen").height - 200,
           }}
           // preset="scroll"
           contentContainerStyle={{ ...container, ...$container }}
@@ -49,7 +49,7 @@ export function Layout({ children, title, fullWidth, style, container }: LayoutP
 }
 
 const $container: ViewStyle = {
-  paddingTop: spacing.medium,
+  paddingTop: spacing.extraLarge,
   flex: 1,
 }
 
