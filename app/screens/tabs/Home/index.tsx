@@ -12,8 +12,6 @@ import { useAuth } from "../../../services/firebase"
 export const HomeScreen: React.FC<TabScreenProps<"Home">> = observer(function HomeScreen(props) {
   const { navigation } = props
 
-  const { user } = useAuth()
-
   return (
     <Layout title="Home">
       <Text
