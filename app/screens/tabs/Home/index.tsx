@@ -21,8 +21,6 @@ export const HomeScreen: React.FC<TabScreenProps<"Home">> = observer(function Ho
         size="md"
       />
 
-      <Text text={JSON.stringify({ user }, null, 2)} size="xs" />
-
       <View style={$buttonContainer}>
         <Button
           LeftAccessory={() => (

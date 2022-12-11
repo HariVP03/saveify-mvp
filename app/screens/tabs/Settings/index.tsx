@@ -6,20 +6,28 @@ import { Layout, ListItem, Text, Toggle } from "../../../components"
 import { TabScreenProps } from "../../../navigators/TabNavigator"
 import FeatherIcon from "@expo/vector-icons/Feather"
 import { spacing } from "../../../theme"
-import { View } from "native-base"
+import { Toast, View } from "native-base"
+import { useAuth } from "../../../services/firebase"
 
 export const SettingsScreen: React.FC<TabScreenProps<"Settings">> = observer(
-  function SettingsScreen(props) {
+  function SettingsScreen({ navigation }) {
+    const { user, logout } = useAuth({
+      onSuccess() {
+        Toast.show({
+          title: "Logged out successfully",
+        })
+      },
+
+      onError({ message }) {
+        Toast.show({
+          title: message,
+        })
+      },
+    })
+
     return (
       <Layout title="Settings">
         <View>
-          <Text preset="subheading" text="Accounts" />
-          <ListItem
-            leftIcon="community"
-            text="Profile"
-            rightIcon={isRTL ? "caretLeft" : "caretRight"}
-          />
-
           <Text preset="subheading" text="Permissions" />
           <ListItem
             leftIcon="bell"
@@ -41,6 +49,21 @@ export const SettingsScreen: React.FC<TabScreenProps<"Settings">> = observer(
             }
             text="Camera"
             rightIcon={isRTL ? "caretLeft" : "caretRight"}
+          />
+
+          <Text preset="subheading" text="Accounts" />
+          <ListItem
+            leftIcon="lock"
+            text={user ? "Log Out" : "Login / Signup"}
+            rightIcon={isRTL ? "caretLeft" : "caretRight"}
+            onPress={() => {
+              if (user) {
+                logout()
+
+                return
+              }
+              navigation.navigate("Login")
+            }}
           />
         </View>
       </Layout>

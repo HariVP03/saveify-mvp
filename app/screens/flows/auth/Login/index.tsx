@@ -17,7 +17,7 @@ import { colors, spacing } from "../../../../theme"
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
-export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_props) {
+export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen({ navigation }) {
   const authPasswordInput = useRef<TextInput>()
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
 
@@ -29,6 +29,14 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
       Toast.show({
         title: message,
       })
+    },
+
+    onSuccess() {
+      Toast.show({
+        title: "Logged in successfully",
+      })
+
+      navigation.navigate("Tabs")
     },
   })
 

@@ -40,8 +40,22 @@ async function createUser(props: CreateUserProps) {
     })
 }
 
+interface LogoutProps {
+  onSuccess?: () => void
+  onError?: (error: { code: string; message: string }) => void
+}
+
+async function logout(props?: LogoutProps) {
+  return auth
+    .signOut()
+    .then(() => props.onSuccess?.())
+    .catch(({ code }) => {
+      props.onError?.({ code, message: AuthErrors[code] })
+    })
+}
+
 interface UseAuthProps {
-  onSuccess?: (user: User) => void
+  onSuccess?: (user?: User) => void
   onError?: (error: { code: string; message: string }) => void
 }
 
@@ -59,5 +73,6 @@ export function useAuth(props?: UseAuthProps) {
     loginWithEmailAndPassword: (email: string, password: string) =>
       loginWithEmailAndPassword({ email, password, ...props }),
     createUser: (email: string, password: string) => createUser({ email, password, ...props }),
+    logout: () => logout(props),
   }
 }
