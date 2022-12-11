@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite"
-import { Toast } from "native-base"
+import { Pressable, Toast } from "native-base"
 import React, { FC, useMemo, useRef, useState } from "react"
 import { TextInput, TextStyle, ViewStyle } from "react-native"
 import {
@@ -98,9 +98,23 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen({
         disabled={!authEmail || !authPassword}
         onPress={() => loginWithEmailAndPassword(authEmail, authPassword)}
       />
+
+      <Pressable onPress={() => navigation.replace("Signup")} style={$signupButton}>
+        <Text style={$signupText}>Or signup instead</Text>
+      </Pressable>
     </Layout>
   )
 })
+
+const $signupButton: ViewStyle = {
+  marginTop: spacing.medium,
+  justifyContent: "center",
+  width: "100%",
+}
+
+const $signupText: TextStyle = {
+  textAlign: "center",
+}
 
 const $enterDetails: TextStyle = {
   marginBottom: spacing.large,

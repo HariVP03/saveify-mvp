@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native"
 import { observer } from "mobx-react-lite"
-import { Toast } from "native-base"
+import { Pressable, Toast } from "native-base"
 import React, { FC, useMemo, useRef, useState } from "react"
 import { TextInput, TextStyle, ViewStyle } from "react-native"
 import {
@@ -157,9 +157,23 @@ export const SignupScreen: FC<SignupScreenProps> = observer(function SignupScree
         disabled={!auth.email || !auth.password || auth.password !== auth.passwordConfirmation}
         onPress={() => createUser(auth.email, auth.password)}
       />
+
+      <Pressable onPress={() => navigation.replace("Login")} style={$loginButton}>
+        <Text style={$loginText}>Or login instead</Text>
+      </Pressable>
     </Layout>
   )
 })
+
+const $loginButton: ViewStyle = {
+  marginTop: spacing.medium,
+  justifyContent: "center",
+  width: "100%",
+}
+
+const $loginText: TextStyle = {
+  textAlign: "center",
+}
 
 const $enterDetails: TextStyle = {
   marginBottom: spacing.large,
