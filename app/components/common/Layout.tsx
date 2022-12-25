@@ -49,7 +49,7 @@ export function Layout({ children, title, fullWidth, style, container }: LayoutP
 }
 
 const $container: ViewStyle = {
-  paddingTop: spacing.extraLarge,
+  paddingTop: spacing.extraLarge + spacing.large,
   flex: 1,
 }
 
